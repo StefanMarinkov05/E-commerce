@@ -1,0 +1,108 @@
+﻿@model IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.Charger>
+
+@{
+    ViewData["Title"] = "Зарядни";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Добави ново зарядно</a>
+</p>
+<form asp-action="Index" method="get">
+<div class="form-actions no-color">
+    <p>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Търси зарядно" title="Въведи №, име или характеристика">
+        <a asp-action="Index">Върни се към пълния списък</a>
+    </p>
+</div>
+</form>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]">№</a>
+            </th>
+            <th>
+                Марка
+            </th>
+            <th>
+                Изображение
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Име</a>
+            </th>
+            <th>
+                Стара цена
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]">Текуща цена</a>
+            </th>
+            <th>
+                Изходен ток
+            </th>
+            <th>
+                Изходно напрежение
+            </th>
+            <th>
+                Бързо зареждане
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RatingSortParm"]">Оценка</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TotalVotesSortParm"]">Резултат/<br />Оценка</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                        <path fill="#ffffff" d="@item.Brand.PathD"></path>
+                    </svg> <br />
+                    @Html.DisplayFor(modelItem => item.Brand.Name)
+                </td>
+                <td>
+                    <img class="productimg smallimg" src="~/images/Products/Cases/@item.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" alt=""/>
+                </td>
+                <td style="width: 1vh;">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OldPrice)лв.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentPrice)лв.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutputCurrent)A
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutputVoltage)V
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FastChargingSupported)
+                </td>
+                <td>
+                    <i data-star="@item.Rating"></i> <br />
+                    /@Html.DisplayFor(modelItem => item.Rating)/
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score) / <br />
+                    @Html.DisplayFor(modelItem => item.TotalVotes)
+                </td>
+                <td>
+                    <a class="btn-edit" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                    <a class="btn-details" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
+                    <a class="btn-delete" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

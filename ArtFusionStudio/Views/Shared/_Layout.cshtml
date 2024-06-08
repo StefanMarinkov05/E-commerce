@@ -1,0 +1,396 @@
+﻿@using ArtFusionStudio.Configuration
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtFusStudio · @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/GlobalHeader/Select.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/GlobalHeader/View.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ArtFusionStudio.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/StarReview.css" asp-append-version="true" />
+    <style id="dynamicStars"></style>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/HomePage/Special.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Product.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/AllProducts/font-awesome.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/AllProducts/responsive.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/AllProducts/style.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/AllProducts/style.css.map" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/AllProducts/bootstrap.css" asp-append-version="true"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap" rel="stylesheet" />
+</head>
+<body class="page-overview">
+    <div class="app__bg">
+        <div class="app__bg__image current--image">
+            <img src="~/images/HomePage/Special/Background/space2.png" alt="" />
+        </div>
+        <div class="app__bg__image next--image">
+            <img src="~/images/HomePage/Special/Background/space.png" alt="" />
+        </div>
+        <div class="app__bg__image previous--image">
+            <img src="~/images/HomePage/Special/Background/space3.png" alt="" />
+        </div>
+    </div>
+    <div class="globalHeader">
+        <nav class="navbar box-shadow">
+           
+        <div class="header-info">
+            <div class="info-top info-left">
+                <a href="/">
+                    <img src="~/images/Logo/afs-logo2.png" alt="ArtFusStudio" title="ArtFusStudio" class="logo-image">
+                </a>
+            </div>
+            <div class="info-top info-middle">
+                <ul class="top-menu inline-list dropping-list">
+                    <li class="information">
+                        <a href="" class="info-button">
+                            <span class="top-menu-link" id="support">Помощ  𝅏</span>
+                        </a>
+                        <ul class="dropped-menu column-list">
+                                
+                                <li class="phone">
+                                <a href="tel:08842" class="info-button">
+                                    <span class="top-menu-link">088 42</span>
+                                </a>
+                            </li>
+                            <li class="email">
+                                <a href="" class="info-button">
+                                    <span class="top-menu-link">contact@artfusstudio.com</span>
+                                </a>
+                            </li>
+                            <li class="faq">
+                                <a href="" class="info-button">
+                                    <span class="top-menu-link">FAQ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="saved">
+                        <a href=""  class="info-button">
+                            <span class="top-menu-link" id="saved">🖤  𝅏</span>
+                        </a>
+                            @if (User.Identity.IsAuthenticated) @* User logged *@ {
+                                <ul class="dropped-menu column-list">
+                                    
+                                </ul>
+                                }
+                            else {
+                                <ul class="dropped-menu column-list">
+                                    <li>
+                                        <a class="info-button" asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                            <span class="top-menu-link">За да видиш запазените продукти, <br /> влез в акаунта си</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            }
+                    </li>
+                    <li class="promotions">
+                        <a class="info-button" asp-area="" asp-controller="Home" asp-action="promotions">
+                            <span class="top-menu-link" id="promotions">ПРОМОЦИИ  𝅏</span>
+                        </a>
+                        <ul class="dropped-menu column-list">
+                            @{
+
+                                int counter = 0;
+                                foreach (var item in (IEnumerable<ArtFusionStudio.Models.Product>)ViewData["Product"] ?? Enumerable.Empty<ArtFusionStudio.Models.Product>())
+                                {
+                                    counter++;
+                                    if (item.OldPrice > item.CurrentPrice && counter < 5)
+                                    {
+                                        <li>
+                                            <div class="row gx-4 gx-lg-5 align-items-center">
+                                                <a class="custom_a" href="">
+                                                    <div class="col-md-3">
+                                                        <img class="card-img-top mb-md-0" src="~/images/Products/@(item.Category.Name)s/@item.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" alt="...">
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <h6 class="item-name fw-bolder">@item.Name</h6>
+                                                        <div class="fs-5">
+                                                            <span class="text-muted text-decoration-line-through old-price">@(item.OldPrice)лв.</span>
+                                                            <span action="new-price">@(item.CurrentPrice)лв.</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <div class="d-flex">
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+                                                            <form id="addToCartForm" asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
+                                                                <input type="hidden" name="productId" value="@item.Id" />
+                                                                <button class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                                                        type="submit" onclick="addToCart(event)" style="color: #fffff;">
+                                                                    <i class="bi-cart-fill me-1"></i>
+                                                                    Добави в количката
+                                                                </button>
+                                                            </form>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                                               asp-area="Identity" asp-controller="Account" asp-action="Login" style="color: #fffff;">
+                                                                <i class="bi-cart-fill me-1"></i>
+                                                                Добави в количката
+                                                            </a>
+                                                        }
+                                                </div>
+                                            </div>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </li>
+                        @if (User.IsInRole(AppConfiguration.AdminRole))
+                        {
+                            <li class="admin-dashboard">
+                                <a href="" class="info-button">
+                                    <span class="top-menu-link" id="support">Администратор  𝅏</span>
+                                </a>
+                                <ul class="dropped-menu column-list">
+                                    <li class="users">
+                                        <a class="info-button" asp-area="Admin" asp-controller="ApplicationUsers" asp-action="Index">
+                                            <span class="top-menu-link">Потребители</span>
+                                        </a>
+                                    </li>
+                                    <li class="brands">
+                                        <a class="info-button" asp-area="Admin" asp-controller="brand" asp-action="index">
+                                            <span class="top-menu-link">Марки</span>
+                                        </a>
+                                    </li>
+                                    <li class="products dropdown-submenu">
+                                        <a href="" class="info-button">
+                                            <span class="top-menu-link">Продукти</span>
+                                        </a>
+                                        <ul class="dropped-submenu">
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="Phones" asp-action="">
+                                                    <span class="top-menu-link">Телефони</span>
+                                                </a>
+                                            </li>
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="Cases" asp-action="">
+                                                    <span class="top-menu-link">Калъфи</span>
+                                                </a>
+                                            </li>
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="Chargers" asp-action="">
+                                                    <span class="top-menu-link">Зарядни</span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li class="product-features dropdown-submenu">
+                                        <a href="" class="info-button">
+                                            <span class="top-menu-link">Характеристики на продукта</span>
+                                        </a>
+                                        <ul class="dropped-submenu">
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="CaseTypes" asp-action="">
+                                                    <span class="top-menu-link">Естетически</span>
+                                                </a>
+                                            </li>
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="OSNameAndVersions" asp-action="Index">
+                                                    <span class="top-menu-link">Софтуер</span>
+                                                </a>
+                                            </li>
+                                            <li class="product">
+                                                <a class="info-button" asp-area="Admin" asp-controller="DisplayTechnologies" asp-action="">
+                                                    <span class="top-menu-link">Хардуер</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="discounts">
+                                        <a class="info-button" asp-area="Admin" asp-controller="Coupons" asp-action="index">
+                                            <span class="top-menu-link">Намаления</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                </ul>
+            </div>
+            <div class="info-top info-right">
+                <ul class="top-menu interface">
+                    <li class="btn-language">
+                        <div id="google_translate_element" class="translator"></div>
+                    </li>
+                    <li class="welcome-msg">
+                        @if (User.Identity.IsAuthenticated) @* user.logged *@
+                        {
+                                <a class="welcome-msg-pattern" asp-area="Identity" asp-controller="Account" asp-action="Logout">Здравей,<br>@User.Identity?.Name</a>
+                        }
+                        else
+                        {
+                                <a class="welcome-msg-pattern" asp-area="Identity" asp-controller="Account" asp-action="Login">Здравей,<br /> впиши се</a>
+                        }
+                    </li>
+                    <li class="user-icon">
+                        @if (User.Identity.IsAuthenticated) 
+                        {
+                            @inject ArtFusionStudio.DataAccess.Data.ApplicationDbContext _context
+                            @inject UserManager<ApplicationUser> UserManager
+                            @using ArtFusionStudio.Models
+                            @using Microsoft.AspNetCore.Identity
+                            @using Microsoft.EntityFrameworkCore
+                            @using System.Linq
+
+                                var currentUser = await UserManager.GetUserAsync(User);
+
+                                var userProfilePic = await _context.UserProfilePics
+                                .FirstOrDefaultAsync(p => p.UserId == currentUser.Id);
+
+                                if (userProfilePic != null)
+                                {
+                                    <a class="user-pfp" asp-area="Customer" asp-controller="UserProfilePics" asp-action="Index">
+                                        <img src="~/images/profiles/@($"{currentUser.Id}{userProfilePic.FileExtension}")" alt="Profile Picture" class="profile-picture rounded-circle">
+                                    </a>
+                                }
+                                else 
+                                {
+                                    <a class="user-pfp" asp-area="Customer" asp-controller="UserProfilePics" asp-action="Index">
+                                        <img src="~/images/HomePage/Head/default-pfp.jpg" alt="default" title="default" alt="Profile Picture" class="profile-picture">
+                                    </a>
+                                }
+                        }
+                        else
+                        {
+                            <a class="user-pfp" asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                    <img src="~/images/HomePage/Head/default-pfp.jpg" alt="default" title="default" alt="Profile Picture" class="profile-picture">
+                            </a>
+                        }
+                    </li>
+                    <li class="shopping-cart">
+                            <div class="cart">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+
+                                    <a class="shopping-button info-button" asp-area="Customer" asp-controller="ShoppingCart" asp-action="cart-view">
+                                        <span class="btn--shopping-cart top-menu-link">🛒</span>
+                                    </a>
+                                    <ul class="dropped-menu column-list">
+                                        @{
+
+                                            int cartItemsCounter = 0;
+                                            decimal? totalSum = 0;
+                                            decimal? totalQuantity = 0;
+                                            @foreach (var item in (IEnumerable<ArtFusionStudio.Models.Orders.ShoppingCartItem>)ViewData["ShoppingCartItem"] ?? Enumerable.Empty<ArtFusionStudio.Models.Orders.ShoppingCartItem>())
+                                            {
+                                                cartItemsCounter++;
+                                                if (cartItemsCounter < 5)
+                                                {
+                                                    totalSum = item.Cart.TotalPrice;
+                                                    totalQuantity = item.Cart.TotalQuantity;
+                                                    <li class="category" id="@item.Id">
+                                                        <a class="category-path" asp-area="Customer" asp-controller="Products" asp-action="Details" asp-route-id="@item.Product.Id">
+                                                            <span class="item-category">@(cartItemsCounter).  @item.Product.Name</span><br /> 
+                                                            <span class="item-price">@item.Product.CurrentPrice лв.</span>
+                                                            <span class="item-quantity">Брой: @item.Quantity</span> 
+                                                        </a>
+                                                    </li>
+                                                }
+                                            }
+                                            <li class="category">
+                                                <a class="category-path" asp-area="Customer" asp-controller="ShoppingCart" asp-action="CartView">
+                                                    <span class="item-price">Общо: @totalSum лв.</span>
+                                                    <span class="item-category">Продукти: @totalQuantity</span><br />
+                                                </a>
+                                            </li>
+                                        }
+                                        <li class="category" id="all">
+                                            <a class="category-path" asp-area="Customer" asp-controller="ShoppingCart" asp-action="CartView">
+                                                <span class="item-category">Виж количката</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a class="shopping-button info-button" asp-area="Customer" asp-controller="ShoppingCart" asp-action="cart-view">
+                                        <span class="btn--shopping-cart top-menu-link">🛒</span>
+                                    </a>
+                                    <ul class="dropped-menu column-list">
+                                        <li>
+                                            <a class="info-button" asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                                <span class="top-menu-link">За да видиш запазените продукти, <br /> влез в акаунта си</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                         </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<nav id="ac-localnav" class="sticky-nav">
+    <div class="select">
+        <div class="search-engine stocks-preview" id="input">
+        </div>
+        <div class="items">
+            <ul class="categories inline-list">
+                <li class="category" id="home">
+                    <a class="category-path" href="/">
+                        <span class="item-category">🏠</span>
+                    </a>
+                </li>
+                @foreach (var item in (IEnumerable<ArtFusionStudio.Models.Brand>)ViewData["Brand"] ?? Enumerable.Empty<ArtFusionStudio.Models.Brand>())
+                {
+                    <li class="category" id="@item.Name">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                            <path fill="#FFFFFF" d="@item.PathD"></path>
+                        </svg>
+                        <a class="category-path" asp-area="Customer"
+                            asp-controller="Products"
+                            asp-action="Index"
+                            asp-route-brandId="@item.Id"
+                            asp-route-sortOrder="@ViewData["CurrentSort"]">
+                            <span class="item-category">  @item.Name</span>
+                        </a>
+                    </li>
+                }
+                <li class="category" id="all">
+                    <a class="category-path" asp-area="Customer" asp-controller="Products" asp-action="Index">
+                        <span class="item-category">ВСИЧКИ</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+        @RenderBody() 
+</div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'bg' }, 'google_translate_element');
+        }
+    </script>
+
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Spinning phones *@
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.3/gsap.min.js"></script>
+
+    <script src="~/js/HomePage/OffersCards.js" asp-append-version="true"></script>
+    <script src="~/js/HomePage/HeartAnimation.js" asp-append-version="true"></script>
+    <script src="~/js/Stars.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

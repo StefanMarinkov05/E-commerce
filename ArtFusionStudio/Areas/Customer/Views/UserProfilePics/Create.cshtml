@@ -1,0 +1,17 @@
+﻿@model ArtFusionStudio.Models.UserProfilePic
+
+@{
+    ViewData["Title"] = "Качване на профилна снимка";
+}
+
+<div class="container">
+    <h1>Качване на профилна снимка</h1>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Изберете профилна снимка:</label>
+            <input type="file" class="form-control-file" id="file" name="file" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Качи</button>
+    </form>
+</div>

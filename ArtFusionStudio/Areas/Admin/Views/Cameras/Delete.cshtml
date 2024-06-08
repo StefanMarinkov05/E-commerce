@@ -1,0 +1,27 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.Camera
+
+@{
+    ViewData["Title"] = "Изтрий";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурен ли си че искаш да изтриеш @Model.CameraCount?</h3>
+<div>
+    <h4>Камера</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Брой камери
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CameraCount)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" />
+        <a asp-controller="DisplayTechnologies" asp-action="Index">Върни се към списъка</a>
+    </form>
+</div>

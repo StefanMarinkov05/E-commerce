@@ -1,0 +1,17 @@
+﻿@model ArtFusionStudio.Models.UserProfilePic
+
+@{
+    ViewData["Title"] = "Промяна на профилната снимка";
+}
+
+<div class="container">
+    <h1>Промяна на профилната снимка</h1>
+
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Изберете нова профилна снимка:</label>
+            <input type="file" class="form-control-file" id="file" name="file" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Запази промените</button>
+    </form>
+</div>

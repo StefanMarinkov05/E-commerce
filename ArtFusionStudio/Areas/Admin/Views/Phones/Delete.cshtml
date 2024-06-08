@@ -1,0 +1,111 @@
+﻿@model ArtFusionStudio.Models.Phone
+
+@{
+    ViewData["Title"] = "Изтрий";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурен ли си че искаш да изтриеш @Model.Name?</h3>
+<div>
+    <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            Марка
+                        </dt>
+                        <dd class="col-sm-9">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                                <path fill="#ffffff" d="@Model.Brand.PathD"></path>
+                            </svg>
+                            @Html.DisplayFor(model => model.Brand.Name)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Стара цена
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.OldPrice)лв.
+                        </dd>
+                        <dt class="col-sm-3">
+                            Текуща цена
+                        </dt>
+                        <dt class="col-sm-3">
+                            Наличност
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Quantity)
+                        </dd>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.CurrentPrice)лв.
+                        </dd>
+                        <dt class="col-sm-3">
+                            Оценка
+                        </dt>
+                        <dd class="col-sm-9">
+                            <i data-star="@Model.Rating"></i>
+                            /@Html.DisplayFor(model => model.Rating)/
+                        </dd>
+
+                        <dt class="col-sm-3">
+                            Брой оценки
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.TotalVotes)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="bigimage">
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            Описание
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Памет
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.StorageCapacity.CapacityGB)GB
+                        </dd>
+                        <dt class="col-sm-3">
+                            RAM
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Memory.RAM)GB
+                        </dd>
+                        <dt class="col-sm-3">
+                            Екран
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DisplayTechnology.Name)
+                        </dd>
+                        <dt class="col-sm-3">
+                            Тип USB
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.USBType.Type)
+                        </dd>
+                        <dt class="col-sm-3">
+                            ОС
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.OSNameAndVersion)
+                        </dd>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="bigimage">
+                        <img class="productimg img-fluid" src="~/images/Products/@(Model.Category.Name)s/@Model.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" /> 
+        <a asp-action="Index">Върни се към списъка</a>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+﻿@model ArtFusionStudio.Models.ImageExtension
+
+@{
+    ViewData["Title"] = "Изтрий";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурен ли си че искаш да изтриеш @Model.Extension?</h3>
+<div>
+    <h4>Разширение</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Разширение
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Extension)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" /> |
+        <a asp-controller="ApplicationUsers" asp-action="Index">Върни се към списъка</a>
+    </form>
+</div>

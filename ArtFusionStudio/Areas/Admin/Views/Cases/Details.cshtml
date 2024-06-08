@@ -1,0 +1,95 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.Case
+
+@{
+    ViewData["Title"] = "Подробни данни";
+}
+
+<h1>Детайли</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        Марка
+                    </dt>
+                    <dd class="col-sm-9">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                            <path fill="#ffffff" d="@Model.Brand.PathD"></path>
+                        </svg>
+                        @Html.DisplayFor(model => model.Brand.Name)
+                    </dd>
+                    <dt class="col-sm-3">
+                        Стара цена
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.OldPrice)лв.
+                    </dd>
+                    <dt class="col-sm-3">
+                        Текуща цена
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.CurrentPrice)лв.
+                    </dd>
+                    <dt class="col-sm-3">
+                        Наличност
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Quantity)
+                    </dd>
+                    <dt class="col-sm-3">
+                        Оценка
+                    </dt>
+                    <dd class="col-sm-9">
+                        <i data-star="@Model.Rating"></i>
+                        /@Html.DisplayFor(model => model.Rating)/
+                    </dd>
+
+                    <dt class="col-sm-3">
+                        Брой оценки
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.TotalVotes)
+                    </dd>
+                </dl>
+            </div>
+            <div class="bigimage">
+                <dl class="row">
+                    <dt class="col-sm-3">
+                        Описание
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Ниво на защита
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ProtectionLevel.Protection)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Материал
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CaseMaterial.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Тип калъф
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CaseType.Name)
+                    </dd>
+            </div>
+            <div class="col-md-4">
+                <div class="bigimage">
+                    <img class="productimg img-fluid" src="~/images/Products/@(Model.Category.Name)s/@Model.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> 
+    <a asp-action="Index">Върни се към списъка</a>
+</div>

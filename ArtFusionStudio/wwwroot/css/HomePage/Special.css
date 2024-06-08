@@ -1,0 +1,465 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
+
+:root {
+    --card-width: 200px;
+    --card-height: 300px;
+    --card-transition-duration: 800ms;
+    --card-transition-easing: ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+    button:focus {
+        outline: none;
+        border: none;
+    }
+
+.app {
+    bottom: -42vh;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app__bg {
+    position: absolute;
+    width: 100%;
+    height: /*calc(var(--card-height)* 2.5);*/ 128%;
+    z-index: -5;
+    filter: blur(6px);
+    margin: -5px;
+    /*transform: scale(1.1);*/
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+}
+
+    .app__bg::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 1;
+        opacity: 0.8;
+    }
+
+.app__bg__image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateX(var(--image-translate-offset, 0));
+    width: 180%;
+    height: 180%;
+    transition: transform 1000ms ease, opacity 1000ms ease;
+    overflow: hidden;
+}
+
+    .app__bg__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .app__bg__image.current--image {
+        opacity: 1;
+        --image-translate-offset: 0;
+    }
+
+    .app__bg__image.previous--image, .app__bg__image.next--image {
+        opacity: 0;
+    }
+
+    .app__bg__image.previous--image {
+        --image-translate-offset: -25%;
+    }
+
+    .app__bg__image.next--image {
+        --image-translate-offset: 25%;
+    }
+
+.cardList {
+    position: absolute;
+    /*width: calc(3 * var(--card-width));*/
+    width: 60%;
+    height: auto;
+}
+
+.cardList__btn {
+    --btn-size: 85px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+}
+
+    .cardList__btn.btn--left {
+        left: -15%;
+    }
+
+    .cardList__btn.btn--right {
+        right: -15%;
+    }
+
+    .cardList__btn .icon {
+        width: 100%;
+        height: 100%;
+    }
+
+        .cardList__btn .icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+.cardList .cards__wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    z-index: -4;
+}
+
+.card {
+    --card-translateY-offset: 100vh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateX(var(--card-translateX-offset)) translateY(var(--card-translateY-offset)) rotateY(var(--card-rotation-offset)) scale(var(--card-scale-offset));
+    display: inline-block;
+    width: var(--card-width);
+    height: var(--card-height);
+    transition: transform var(--card-transition-duration) var(--card-transition-easing);
+    user-select: none;
+    background-color:transparent;
+}
+
+    .card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        /*height: 120%;*/
+        background: #000;
+        z-index: 1;
+        transition: opacity var(--card-transition-duration) var(--card-transition-easing);
+        opacity: calc(1 - var(--opacity));
+    }
+
+.card__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+    .card__image img {
+        /*filter: brightness(0.30);*/
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        /*height: 100%;*/
+        object-fit: cover;
+        background-color: transparent;
+    }
+
+.card.current--card {
+    --current-card-rotation-offset: 0;
+    --card-translateX-offset: 0;
+    --card-rotation-offset: var(--current-card-rotation-offset);
+    --card-scale-offset: 1.2;
+    --opacity: 0.8;
+}
+
+.card.previous--card {
+    --card-translateX-offset: calc(-1 * var(--card-width) * 1.1);
+    --card-rotation-offset: 25deg;
+}
+
+.card.next--card {
+    --card-translateX-offset: calc(var(--card-width) * 1.1);
+    --card-rotation-offset: -25deg;
+}
+
+.card.previous--card, .card.next--card {
+    --card-scale-offset: 0.9;
+    --opacity: 0.4;
+}
+
+.infoList {
+    z-index: 70;
+    position: absolute;
+    width: calc(3 * var(--card-width));
+    height: var(--card-height);
+    /*pointer-events: none;*/
+}
+
+    .infoList .info__wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
+.info {
+    padding-top: 70px;
+    margin-left: calc(var(--card-width) / 1.3);
+    transform: translateZ(2rem);
+    transition: transform var(--card-transition-duration) var(--card-transition-easing);
+}
+
+    .info .text {
+        position: relative;
+        font-family: "Montserrat";
+        font-size: calc(var(--card-width) * var(--text-size-offset, 0.2));
+        white-space: nowrap;
+        color: #fff;
+        width: fit-content;
+    }
+
+    .info .review-box {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+    }
+
+    .info .star-review {
+        /*font-size: 24px;*/
+        margin-left: calc(var(--card-width)* 2.1);
+        margin-bottom: calc(var(--card-height) / 10.2);
+    }
+    .info .count-reviews {
+        font-size: 14px;
+        text-decoration: none;
+        color: #6d22d0;
+    }
+
+    .info .HeartAnimation {
+        padding-left: calc(var(--card-width) / 6);
+        
+    }
+    .HeartAnimation .heart {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+        cursor: pointer;
+        transition: background-position 1s steps(28);
+        transition-duration: 0s;
+        background-position: 0 0;
+    }
+        .HeartAnimation  .heart.is-active {
+            transition-duration: 1s;
+            background-position: -2800px 0;
+        }
+
+    .info .name,
+    .info .version {
+        text-transform: uppercase;
+        font-family: "Palantino";
+    }
+
+    .info .name {
+        margin-top: 13vh;
+    }
+
+    .info .version {
+        font-weight: 800;
+    }
+
+    .info .version {
+        --mg-left: 40px;
+        --text-size-offset: 0.12;
+        font-weight: 600;
+        margin-left: var(--mg-left);
+        margin-bottom: calc(var(--mg-left) / 2);
+        padding-bottom: 0.8rem;
+    }
+
+        .info .version::before, .info .location::after {
+            content: "";
+            position: absolute;
+            background: #fff;
+            left: 0%;
+            transform: translate(calc(-1 * var(--mg-left)), -50%);
+        }
+
+        .info .version::before {
+            top: 50%;
+            width: 20px;
+            height: 5px;
+        }
+
+        .info .version::after {
+            bottom: 0;
+            width: 60px;
+            height: 2px;
+        }
+
+    .info .description {
+        --text-size-offset: 0.065;
+        font-weight: 500;
+    }
+
+.shopping {
+    display: flex;
+    justify-content: space-between;
+}
+    .shopping .quantity{
+        font-size: 14px;
+        color: #96ff00;
+    }
+
+    .shopping .buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .shopping .buttons .btn {
+            font-weight: bold;
+            font-size: 13px;
+            height: 7vh;
+            width: 14vw;
+            background-color: #b93030;
+            color: #eee;
+            padding: 1vh 4vh;
+            margin-bottom: 1vh;
+            border-radius: 20vh;
+        }
+
+    .shopping .btn--action {
+        display: grid;
+        justify-items: stretch;
+    }
+
+    .info .price {
+        padding-left: calc(var(--card-width)* 1.3);
+        text-align: center;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        /*margin-right: calc(var(--card-width)* 0.5);*/
+        float: right;
+    }
+
+    .info .old-price {
+        color: #5d5252;
+        font-size: 42px;
+        font-weight:700;
+    }
+
+    .info .new-price {
+        color: red;
+        font-size:28px;
+        font-weight:900;
+    }
+
+    .info .current--info {
+        width: 50%;
+        opacity: 1;
+        display: block;
+        transform: translate3d(-124px, 80px, 32px);
+    }
+        .info .current--info #iphone {
+            transform: translate3d(-124px, 80px, 32px);
+        }
+
+    .info.previous--info, .info.next--info {
+        opacity: 0;
+        display: none;
+    }
+
+.loading__wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    z-index: 200;
+    flex-direction: column;
+}
+
+    .loading__wrapper .loader--text {
+        color: #fff;
+        font-family: "Montserrat";
+        font-weight: 500;
+        margin-bottom: 1.4rem;
+    }
+
+    .loading__wrapper .loader {
+        position: relative;
+        width: 200px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+        .loading__wrapper .loader span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: red;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+
+@media only screen and (min-width: 800px) {
+    :root {
+        --card-width: 250px;
+        --card-height: 400px;
+    }
+}
+
+.support {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 10px;
+    display: flex;
+}
+
+    .support a {
+        margin: 0 10px;
+        color: #fff;
+        font-size: 1.8rem;
+        backface-visibility: hidden;
+        transition: all 150ms ease;
+    }
+
+        .support a:hover {
+            transform: scale(1.1);
+        }
+
+/*.phone-2 {
+    position: absolute;
+    transition: left 2s ease-in-out;
+}*/

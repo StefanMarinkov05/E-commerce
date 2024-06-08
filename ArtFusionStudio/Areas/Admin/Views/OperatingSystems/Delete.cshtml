@@ -1,0 +1,27 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystem
+
+@{
+    ViewData["Title"] = "Изтрий";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурен ли си че искаш да изтриеш @Model.OSName?</h3>
+<div>
+    <h4>Име на ОС</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Име на ОС
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OSName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" /> 
+        <a asp-controller="OSNameAndVersions" asp-action="Index">Върни се назад</a>
+    </form>
+</div>

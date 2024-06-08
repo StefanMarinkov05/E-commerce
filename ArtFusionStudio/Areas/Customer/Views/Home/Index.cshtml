@@ -1,0 +1,153 @@
+﻿@using ArtFusionStudio.Utility
+@model IEnumerable<ArtFusionStudio.Models.Phone>
+
+@{
+    ViewData["Title"] = "Начална страница";
+
+    List<Phone> top3Phones = new List<Phone>();
+    if (Model != null && Model.Any())
+    {
+        top3Phones = Model.OrderByDescending(p => p.Rating)
+                         .Take(3)
+                         .ToList();
+
+        if (top3Phones.Count >= 3)
+        {
+            Phone temp = top3Phones[2];
+            top3Phones[2] = top3Phones[0];
+            top3Phones[0] = temp;
+        }
+    }
+}
+
+
+<div class="app" id="special-offers">
+    <div class="cardList">
+        <button class="cardList__btn btn btn--left">
+            <div class="icon">
+                <svg>
+                    <use xlink:href="#arrow-left"></use>
+                </svg>
+            </div>
+        </button>
+    </div>
+        
+    <div class="cards__wrapper">
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="card @StaticDetails.specialOffersClasses[i]--card">
+                <div class="card__image">
+                    @if (top3Phones != null && i < top3Phones.Count)
+                    {
+                        <img src="~/images/Products/Phones/@(top3Phones[i].ProductURL)" class="show-phone" alt="" />
+                    }
+                </div>
+            </div>
+        }
+        
+            
+        
+    </div>
+ 
+        <button class="cardList__btn btn btn--right">
+            <div class="icon">
+                <svg>
+                    <use xlink:href="#arrow-right"></use>
+                </svg>
+            </div>
+        </button>
+    </div>
+
+
+<div class="infoList">
+    <div class="info__wrapper">
+        @foreach (var phone in top3Phones)
+        {
+            <div class="info @(phone == top3Phones[0] ? "current--info" : (phone == top3Phones[1] ? "next--info" : "previous--info"))">
+                <div class="text review-box">
+                    <i class="text star-review" data-star="@phone.Rating"></i><br />
+                    <a href="/" class="text count-reviews">@phone.TotalVotes оценки</a>
+                </div>
+                <div class="text HeartAnimation">
+                    <button class="heart"></button>
+                </div>
+                <h1 class="text name">@phone.Name.Split().FirstOrDefault()</h1>
+                <h4 class="text version">
+                    @phone.Name.Split().Skip(1).FirstOrDefault()
+                    @phone.Name.Split().Skip(2).FirstOrDefault()
+                </h4>
+                <p class="text description">@phone.Description</p>
+                <div class="text shopping">
+                    <div class="text buttons">
+                        @if (phone.Quantity < 150)
+                        {
+                            <p class="text quantity"> Остават: @phone.Quantity </p>
+                        }
+                        <div class="text btn--action">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form id="addToCartForm" asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
+                                    <input type="hidden" name="productId" value="@phone.Id" />
+                                    <button class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                            type="submit" onclick="addToCart(event)">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Добави в<br />
+                                        количката
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                   asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Добави в<br />
+                                    количката
+                                </a>
+                            }
+                            <a class="btn text details action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100" asp-controller="Products" asp-action="Details" asp-route-id="@phone.Id">Разгледай</a>
+                        </div>
+                    </div>
+                    <div class="text price">
+                        @if (phone.CurrentPrice < phone.OldPrice)
+                        {
+                            <p class="text old-price">@phone.OldPrice.FormatDecimal()лв.</p>
+                        }
+                        <p class="text new-price">@phone.CurrentPrice.FormatDecimal()лв.</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+    </div>
+
+    <div class="loading__wrapper">
+        <div class="loader--text">Зареждане...</div>
+        <div class="loader">
+            <span></span>
+        </div>
+    </div>
+
+    <svg class="icons" style="display: none;">
+        <symbol id="arrow-left" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+            <polyline points='328 112 184 256 328 400' style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+        </symbol>
+        <symbol id="arrow-right" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+            <polyline points='184 112 328 256 184 400' style='fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' />
+        </symbol>
+    </svg>
+
+
+<script>
+    function addToCart(event) {
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert('Артикулът е добавен успешно!');
+            } else {
+                alert('Грешка: Неуспешно добавяне на артикула.');
+            }
+        };
+    }
+</script>

@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Хардуер";
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-2">
+            <h1>Kамери</h1>
+
+            <p>
+                <a class="btn-edit"asp-controller="Cameras" asp-action="Create">Създай нов</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Камери
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.Camera>)ViewData["Camera"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.Camera>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CameraCount)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller="Cameras" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="Cameras" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <h1>Екран</h1>
+
+            <p>
+                <a class="btn-edit"asp-controller="DisplayTechnologies" asp-action="Create">Създай нова</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Екран
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.DisplayTechnology>)ViewData["DisplayTechnology"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.DisplayTechnology>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn-edit"asp-controller="DisplayTechnologies" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pen"></i></a>
+                                <a class="btn-delete" asp-controller="DisplayTechnologies" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <h1>RAM</h1>
+
+            <p>
+                <a class="btn-edit"asp-controller="Memories" asp-action="Create">Създай новo</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            RAM
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.Memory>)ViewData["Memory"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.Memory>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RAM) GB
+                            </td>
+                            <td>
+                                <a class="btn-edit"asp-controller="Memories" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pen"></i></a>
+                                <a class="btn-delete" asp-controller="Memories" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <h1>Памет</h1>
+
+            <p>
+                <a class="btn-edit"asp-controller="StorageCapacities" asp-action="Create">Създай новo</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Памет
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.StorageCapacity>)ViewData["StorageCapacity"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.StorageCapacity>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Math.Round(item.CapacityGB) GB
+                            </td>
+                            <td>
+                                <a class="btn-edit"asp-controller="StorageCapacities" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pen"></i></a>
+                                <a class="btn-delete" asp-controller="StorageCapacities" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <h1>Тип USB</h1>
+
+            <p>
+                <a class="btn-edit"asp-controller="USBs" asp-action="Create">Създай новo</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Тип USB
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.USB>)ViewData["USB"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.Physical.USB>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                            <td>
+                                <a class="btn-edit"asp-controller="USBs" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pen"></i></a>
+                                <a class="btn-delete"asp-controller="USBs" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

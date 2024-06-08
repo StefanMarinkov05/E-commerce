@@ -1,0 +1,38 @@
+﻿@model ArtFusionStudio.Models.Brand
+
+@{
+    ViewData["Title"] = "Детайли";
+}
+
+<h1>Детайли</h1>
+
+<div>
+    <h4>Марка</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Име
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Лого
+        </dt>
+        <dd class = "col-sm-10">
+            <svg xmlns="http://www.w3.org/2000/svg" height="4vh" viewBox="0 0 24 24">
+                <path fill="#ffffff" d="@Model.PathD"/>
+            </svg>
+        </dd>
+        <dt class="col-sm-2">
+            SVG път на логото
+        </dt>
+        <dd class="col-sm-10">
+            <textarea>@Html.DisplayFor(model => model.PathD)</textarea>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> |
+    <a asp-action="Index">Върни се към списъка</a>
+</div>

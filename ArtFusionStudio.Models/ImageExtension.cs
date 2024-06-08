@@ -1,0 +1,16 @@
+﻿using ArtFusionStudio.Utility;
+using System.ComponentModel.DataAnnotations;
+
+namespace ArtFusionStudio.Models
+{
+    public class ImageExtension
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = ErrorMessages.NO_BLANK_SPACE)]
+        [StringLength(6, MinimumLength = 2, ErrorMessage = ErrorMessages.OUT_OF_RANGE + " 2 и 6.")]
+        public required string Extension {  get; set; }
+
+    }
+}

@@ -1,0 +1,129 @@
+﻿@model ArtFusionStudio.Utility.PaginatedList<ArtFusionStudio.Models.Brand>
+
+@{
+    ViewData["Title"] = "Марки";
+}
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Марки</h1>
+
+            <p>
+                <a asp-action="Create">Добави нова марка</a>
+            </p>
+
+            <form asp-action="Index" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" id="myInput" onkeyup="searchEngine()" placeholder="Търси Марка" title="Въведи № или име на марка">
+                        <a asp-action="Index">Върни се към пълния списък</a>
+                    </p>
+                </div>
+            </form>
+
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">№</a>
+                        </th>
+                        <th>
+                            Лого
+                        </th>
+                        <th>
+                            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Име</a>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model as IEnumerable<ArtFusionStudio.Models.Brand>)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>         
+                                <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                                    <path fill="#ffffff" d="@item.PathD"></path>
+                                </svg>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a> 
+                                <a class="btn-details" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a> 
+                                <a class="btn-delete" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+            @if (Model.PageIndex > 1)
+            {
+                <a id="previousPageLink"
+               asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn-paging @prevDisabled">
+                ←
+            </a>
+            }
+            <a id="nextPageLink"
+               asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn-paging @nextDisabled">
+                →
+            </a>
+        </div>
+        <script src="~/js/ChangePage.js"></script>
+        <div class="col-sm-6">
+                <h1>Категории</h1>
+
+                <p>
+                    <a asp-controller="Category" asp-action="Create">Добави нова категория</a>
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                №
+                            </th>
+                            <th>
+                                Име
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (IEnumerable<ArtFusionStudio.Models.Category>)ViewData["Category"] ?? Enumerable.Empty<ArtFusionStudio.Models.Category>())
+                        {
+                            <tr>
+                                <td>
+                                    @item.Id
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    <a class="btn-edit" asp-controller="Category" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a> 
+                                    <a class="btn-delete" asp-controller="Category" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>

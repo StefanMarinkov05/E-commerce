@@ -1,0 +1,122 @@
+﻿.sticky-nav {
+    z-index: 420;
+    top: 2vh;
+    position: sticky;
+}
+
+.page-overview > #ac-localnav > .select {
+    transform: translateY(0);
+    transition:unset; 
+}
+
+
+.select {
+    display: flex;
+    flex-direction: row;
+    margin-left: 3vw;
+    justify-content: space-evenly;
+}
+
+.search-engine {
+    margin-top: -3vh;
+    font-size: 1.42rem;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 1vh;
+    border-radius: 28px;
+    background: transparent;
+    transition: background 0.25s;
+}
+
+.search-engine:focus-within {
+    box-shadow: 0 0 2px rgba(0,0,0,0.75);
+}
+
+.search-input {
+    width: 16vw;
+    font-size: 15px;
+    font-family: 'Lexend', sans-serif;
+    float: right;
+    color: rgba(255,255,255,0.75);
+    margin-left: 1vw;
+    outline: none;
+    border: none;
+    background: transparent;
+    flex: 1;
+}
+
+.search-input::placeholder {
+    color: rgba(255,255,255,0.75)
+}
+
+
+.category {
+    margin: 0 1vw;
+    color: white;
+    font-size: 18px;
+}
+
+    .category .category-path {
+        color: white;
+    }
+
+    .category-path:hover {
+        
+        font-weight: bold;
+    }
+
+        .item-category {
+            display: inline-block;
+        }
+
+        .item-category::after {
+            content: '';
+            width: 0px;
+            height: 2px;
+            display: block;
+            background: #435858;
+            transition: 1000ms;
+        }
+
+        .item-category:hover::after {       
+            width: 100%;
+        }
+
+/*Second design*/
+/*.category {
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(#dbff66c2, #feff00c2);
+}*/
+
+/*.home:before {
+    content: "🏠";
+}*/
+
+/*.category li {
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-left: 1px solid #ddd;*/
+    /*background: linear-gradient(#dbff66c2, #feff00c2);*/
+/*}
+
+    .category li:nth-last-child() {
+        border-right: 1px solid #ddd;
+    }
+
+    .category li a {
+        text-decoration: none;
+        color: #463939;
+    }
+
+    .category li:hover {*/
+        /*background: linear-gradient( 217deg, rgb(255 0 0 / 80%), rgb(255 0 0 / 0%) 70.71% ), 
+linear-gradient(127deg, rgb(0 255 0 / 80%), rgb(0 255 0 / 0%) 70.71%), 
+linear-gradient(336deg, rgb(0 0 255 / 80%), rgb(0 0 255 / 0%) 70.71%);*/
+        /*background: #eee5a0c2;
+        outline: none;
+        border-color: #ddd;
+        box-shadow: 0 0 10px #26bf47;
+    }*/

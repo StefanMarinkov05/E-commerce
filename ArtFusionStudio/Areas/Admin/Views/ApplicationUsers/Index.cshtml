@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<ArtFusionStudio.Models.ApplicationUser>;
+@inject UserManager<ApplicationUser> userManager;
+
+@{
+    ViewData["Title"] = "Потребители";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Потребители</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Потребителско име</th>
+                        <th>Имейл</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            @if (!(await userManager.IsInRoleAsync(item, ArtFusionStudio.Configuration.AppConfiguration.AdminRole)))
+                            {
+                                <td>
+                                    <a class="btn-delete" asp-controller="ApplicationUsers" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <h1>Разширения</h1>
+
+            <p>
+                <a asp-controller="ImageExtensions" asp-action="Create">Добави ново разширение</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Разширение
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ImageExtension>)ViewData["ImageExtension"] ?? Enumerable.Empty<ArtFusionStudio.Models.ImageExtension>())
+                    {
+                        <tr>
+                            <td>
+                                @item.Id
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Extension)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller="ImageExtensions" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="ImageExtensions" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@model ArtFusionStudio.Models.UserProfilePic
+
+@{
+    ViewData["Title"] = "Профилна снимка";
+}
+
+<div class="container">
+    <h1>Профилна снимка</h1>
+
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <img src="~/images/profiles/@Model.UserId@Model.FileExtension" alt="Профилна снимка" class="img-fluid rounded-circle" style="height: 50%; width: auto;" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6 offset-md-3">
+                <p>
+                    <a asp-action="Edit" class="btn btn-primary">Редакция</a>
+                </p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Няма налична профилна снимка.</p>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <a asp-action="Create" class="btn btn-primary">Качване на профилна снимка</a>
+            </div>
+        </div>
+    }
+</div>

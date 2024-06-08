@@ -1,0 +1,182 @@
+﻿/*
+    ICONS
+    ☏ ⛟ ✉ ？ 🛒 🔎 = \e697
+    ☎ 🚚 💬 ❓
+    🏠 ⌕ 
+    💬 🖤 👉 🛒
+*/
+
+.smallimg {
+    height: 6vh;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: auto;
+        background-color: #555;
+        color: black;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -50px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: pre-wrap; /* Allow text to wrap */
+    }
+
+    /* Show the tooltip text when hovering over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.table th, .table td {
+    background: transparent;
+    color: white;
+    vertical-align: middle;
+}
+
+    .table td a {
+        color: white;
+        padding-right: 1vw;
+        border-radius: 10px;
+        padding: 1vh;
+    }
+    .table td .btn-edit {
+        background: #958825;
+    }
+
+    .table td .btn-details {
+        background: deepskyblue;
+    }
+
+    .table td .btn-delete {
+        background: red;
+    }
+
+    .table td a:hover {
+        color: black;
+    }
+
+input[type='checkbox'] {
+    accent-color: #9daf49;
+}
+
+.new-price, .old-price {
+    font-size: 1rem;
+}
+
+.item-name {
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+btn-light-text {
+    color: #ffffff;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.detail-box {
+    text-align: center;
+}
+
+.custom_a, .custom_a:hover {
+    text-decoration: none;
+}
+
+.action-btn {
+    color: black;
+    border-color: black;
+    background-color: transparent;
+}
+
+.action-btn:hover {
+    color: white;
+    border-color: transparent;
+    background: #db3c3c;
+}
+
+.btn-paging {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 2rem;
+}
+    .btn-paging::after {
+        content: '';
+        width: 0px;
+        height: 2px;
+        display: block;
+        background: #435858;
+        transition: 1000ms;
+    }
+    .btn-paging:hover {
+        color: #ffffff;
+        font-weight:900;
+        text-decoration: none;
+    }
+.btn-paging:hover::after {
+  
+    width: 100%;
+}
+.container h4,
+.container header h1,
+.row dt, .row dd,
+.form-group label,
+.form-inline button,
+.info-button span,
+.action-btn:hover span,
+.cart-total,
+.item-data *{
+    color: #ffffff;
+}
+
+.row div p a,
+.container p a
+{
+    color: #e7f5b8;
+}
+
+
+.catalogue {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn-sorting {
+    display: flex;
+    flex-direction: column;
+    padding: 0 42px 0px 0;
+}
+
+.catalogue .btn-sorting a {
+    padding: 0 0px 6px 0px;
+}
+
+.action div a {
+    color: #ffffff
+}
+
+.bigimage img {
+    width: 50%;
+    height: auto;
+}
+
+.cart-btn-action {
+    width: 22vw;
+    /*margin: 10px;*/
+}

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ArtFusionStudio.Models.ProductFeatures.Coupon>
+
+@{
+    ViewData["Title"] = "Купони";
+}
+
+<h1>Купони</h1>
+
+<p>
+    <a asp-action="Create">Добави купон за намаление</a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            <input type="text" id="myInput" onkeyup="searchEngine()" placeholder="Търси купон" title="Въведи №, код или продукт с отстъпка">
+            <a asp-action="Index">Върни се към пълния списък</a>
+        </p>
+    </div>
+</form>
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                №
+            </th>
+            <th>
+                Код за намаление
+            </th>
+            <th>
+                Процент на намалението
+            </th>
+            <th>
+                Име на артикула
+            </th>
+            <th>
+                Начална дата
+            </th>
+            <th>
+                Крайна дата
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountCode)
+            </td>
+            <td>
+                @Math.Round(item.DiscountPercentage)%
+            </td>
+            <td>
+                <a class="redirect-product"
+                    asp-area="Admin" 
+                    asp-controller="@(item.Product.Category.Name)s" 
+                    asp-action="Details"
+                    asp-route-id="@item.Product.Id"
+                    style="color: #ffffff;"
+                    onmouseover="this.style.color='#9cc59d';"
+                    onmouseout="this.style.color='#ffffff';">
+                    @item.Product.Name
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                <a class="btn-edit" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                <a class="btn-details" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i></a>
+                <a class="btn-delete" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

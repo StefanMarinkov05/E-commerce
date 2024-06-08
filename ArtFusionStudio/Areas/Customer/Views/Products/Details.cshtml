@@ -1,0 +1,188 @@
+﻿@model ArtFusionStudio.Models.Product
+
+@{
+    ViewData["Title"] = "Детайли";
+}
+
+<h1>Детайли</h1>
+<h4>@Html.DisplayFor(model => model.Name)</h4>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Марка
+                </dt>
+                <dd class="col-sm-9">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                        <path fill="#ffffff" d="@Model.Brand.PathD"></path>
+                    </svg>
+                    @Html.DisplayFor(model => model.Brand.Name)
+                </dd>
+            @if (Model.OldPrice > Model.CurrentPrice)
+            {
+                <dt class="col-sm-3">
+                    Стара цена
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.OldPrice)лв.
+                </dd>
+            }
+            <dt class="col-sm-3">
+                Текуща цена
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.CurrentPrice)лв.
+            </dd>
+            @if (Model.Quantity < 20){
+                <dt class="col-sm-3">
+                    Наличност
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Quantity)
+                </dd>
+            }
+            <dt class="col-sm-3">
+                Оценка
+            </dt>
+            <dd class="col-sm-9">
+                <i data-star="@Model.Rating"></i>
+                /@Html.DisplayFor(model => model.Rating)/
+            </dd>
+
+            <dt class="col-sm-3">
+                Брой оценки
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.TotalVotes)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-4">
+        <dl class="row">
+            <dt class="col-sm-3">
+                Описание
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            @if (Model is ArtFusionStudio.Models.Phone phone)
+            {
+                <dt class="col-sm-3">
+                    Памет
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => phone.StorageCapacity.CapacityGB)GB
+                </dd>
+                <dt class="col-sm-3">
+                    RAM
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => phone.Memory.RAM)GB
+                </dd>
+                <dt class="col-sm-3">
+                    Екран
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => phone.DisplayTechnology.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    Тип USB
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => phone.USBType.Type)
+                </dd>
+                <dt class="col-sm-3">
+                    ОС
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => phone.OSNameAndVersion.OSNamePlusVersion)
+                </dd>
+            }
+            else if (Model is ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.Case _case)
+            {
+                <dt class="col-sm-3">
+                    Материал
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => _case.CaseMaterial.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    Тип
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => _case.CaseType.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    Ниво на защита
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => _case.ProtectionLevel.Protection)
+                </dd>
+            }
+            else if (Model is ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.Charger charger)
+            {
+                <dt class="col-sm-3">
+                    Изходен ток
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => charger.OutputCurrent)
+                </dd>
+                <dt class="col-sm-3">
+                    Изходно напрежение
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => charger.OutputVoltage)
+                </dd>
+                <dt class="col-sm-3">
+                    Бързо зареждане
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => charger.FastChargingSupported)
+                </dd>
+            }
+                <div class="action mt-4">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <form id="addToCartForm" asp-action="AddToCart" asp-controller="ShoppingCart" method="post">
+                                    <input type="hidden" name="productId" value="@Model.Id" />
+                                    <button class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                            type="submit" style="color: #ffffff;">
+                                        <i class="bi-cart-fill me-1"></i>
+                                        Добави в количката
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="action-btn btn btn-outline-dark btn-dark-text flex-shrink-0 w-100"
+                                   asp-area="Idenityt" asp-controller="Account" asp-action="Login">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Добави в количката
+                                </a>
+                            }
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="action-btn btn btn-outline-dark btn-dark-text">
+                                <i class="bi bi-cash"></i>
+                                Купи
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="bigimage">
+                <img class="productimg img-fluid" src="~/images/Products/@(Model.Category.Name)s/@Model.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="javascript:history.back(1)">Върни се назад</a>
+</div>

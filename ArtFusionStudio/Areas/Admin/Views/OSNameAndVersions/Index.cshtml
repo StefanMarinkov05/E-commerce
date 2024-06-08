@@ -1,0 +1,151 @@
+﻿@model ArtFusionStudio.Utility.PaginatedList<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OSNameAndVersion>
+@using ArtFusionStudio.Utility;
+
+@{
+    ViewData["Title"] = "Софтуер";
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>OС</h1>
+
+            <p>
+                <a asp-controller="OperatingSystems" asp-action="Create">Доба нова ОС</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Име
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystem>)ViewData["OSName"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystem>())
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OSName)
+                        </td>
+                        <td>
+                                <a class="btn-edit" asp-controller="OperatingSystems" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="OperatingSystems" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h1>Версии</h1>
+
+            <p>
+                <a asp-controller="OperatingSystemVersions" asp-action="Create">Създай нова версия</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Версия
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystemVersion>)ViewData["OSVersions"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystemVersion>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @item.OSVersion.FormatDecimal()
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller = "OperatingSystemVersions" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a> 
+                                <a class="btn-delete" asp-controller = "OperatingSystemVersions" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h1>Вариации</h1>
+
+            <p>
+                <a asp-action="Create">Създай нова вариация</a>
+
+            <form asp-action="Index" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        <input type="text" id="myInput" onkeyup="searchEngine()" placeholder="Търси ОС" title="Въведи №, име или версия">
+                        <a asp-action="Index">Върни се към пълния списък</a>
+                    </p>
+                </div>
+            </form>
+
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            ОС
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model as IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OSNameAndVersion>)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OSNamePlusVersion)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a> 
+                                <a class="btn-delete" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+                @if (Model.PageIndex > 1)
+                {
+                    <a id ="previousPageLink"
+                       asp-action="Index"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       class="btn-paging @prevDisabled">
+                        ←
+                    </a>
+                }
+                <a id="nextPageLink"
+                   asp-action="Index"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   class="btn-paging @nextDisabled">
+                    →
+                </a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/ChangePage.js"></script>

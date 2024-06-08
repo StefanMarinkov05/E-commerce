@@ -1,0 +1,48 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.Coupon
+
+@{
+    ViewData["Title"] = "Подробни данни";
+}
+
+<h1>Детайли</h1>
+
+<div>
+    <h4>Купон</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Код за отстъпка
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DiscountCode)
+        </dd>
+        <dt class="col-sm-2">
+            Процент на отстъпка
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DiscountPercentage)
+        </dd>
+        <dt class="col-sm-2">
+            Продукт с отстъпката
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Начална дата
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            Крайна дата
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Редактирай</a> |
+    <a asp-action="Index">Върни се към списъка</a>
+</div>

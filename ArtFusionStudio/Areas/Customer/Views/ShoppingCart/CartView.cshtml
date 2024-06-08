@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ArtFusionStudio.Models.Orders.ShoppingCartItem>
+
+<h1>Пазарска количка</h1>
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Марка</th>
+                    <th>Изображение</th>
+                    <th>Продукт</th>
+                    <th>Брой</th>
+                    <th>Цена</th>
+                    <th>Общо</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="3vh" viewBox="0 0 24 24">
+                                <path fill="#ffffff" d="@item.Product.Brand.PathD"></path>
+                            </svg> <br />
+                            @Html.DisplayFor(modelItem => item.Product.Brand.Name)
+                        </td>
+                        <td>
+                            <img class="productimg smallimg" src="~/images/Products/@(item.Product.Category.Name)s/@item.Product.ProductURL" onerror="this.onerror=null; this.src='/images/Logo/afs-logo-phone.png'" />
+                        </td>
+                        <td>
+                            <a class="redirect-product"
+                               asp-area="Customer"
+                               asp-controller="Products"
+                               asp-action="Details"
+                               asp-route-id="@item.Product.Id"
+                               style="color: #ffffff;"
+                               onmouseover="this.style.color='#9cc59d';"
+                               onmouseout="this.style.color='#ffffff';">
+                                @item.Product.Name
+                            </a>
+                        </td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Product.CurrentPrice лв.</td>
+                        <td>@(item.Quantity * item.Product.CurrentPrice) лв.</td>
+                        <td>
+                            <form asp-controller="ShoppingCart" asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-right">
+        <p>Обща сума: @Model.Sum(item => item.Quantity * item.Product.CurrentPrice) лв.</p>
+        <p>Общ брой артикули: @Model.Sum(item => item.Quantity)</p>
+    </div>
+
+    <form asp-controller="ShoppingCart" asp-action="ClearCart" method="post">
+        <button type="submit" class="btn btn-danger cart-btn-action">Изчисти количката</button>
+    </form>
+
+    <form asp-controller="ShoppingCart" asp-action="ClearCart" method="post">
+        <button type="submit" class="btn btn-primary cart-btn-action">Купи</button>
+    </form>
+}
+else
+{
+    <p>Вашата количка е празна.</p>
+}
+
+<a asp-area="Customer" asp-controller="Products" asp-action="Index" class="cart-btn-action btn btn-secondary">Продължи пазаруването</a>

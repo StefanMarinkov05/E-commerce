@@ -1,0 +1,118 @@
+﻿@{
+    ViewData["Title"] = "Естетически";
+}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-4">
+            <h1>Материали</h1>
+
+            <p>
+                <a asp-controller="CaseMaterials" asp-action="Create">Създай нов</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Вид
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.CaseMaterial>)ViewData["CaseMaterials"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.CaseMaterial>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller="CaseMaterials" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="CaseMaterials" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h1>Модели</h1>
+
+            <p>
+                <a asp-controller="CaseTypes" asp-action="Create">Създай нов</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Тип
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.CaseType>)ViewData["CaseTypes"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.CaseType>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller="CaseTypes" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="CaseTypes" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <h1>Нива на защита</h1>
+
+            <p>
+                <a asp-controller="ProtectionLevels" asp-action="Create">Създай новo</a>
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            №
+                        </th>
+                        <th>
+                            Защита
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (IEnumerable<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.ProtectionLevel>)ViewData["ProtectionLevels"] ?? Enumerable.Empty<ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.ProtectionLevel>())
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Protection)
+                            </td>
+                            <td>
+                                <a class="btn-edit" asp-controller="ProtectionLevels" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                                <a class="btn-delete" asp-controller="ProtectionLevels" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

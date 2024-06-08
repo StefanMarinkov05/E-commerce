@@ -1,0 +1,97 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.Charger
+
+@{
+    ViewData["Title"] = "Добави";
+}
+
+<h1>Създай</h1>
+
+<h4>Зарядно</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label">Категория</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BrandId" class="control-label">Марка</label>
+                <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductURL" class="control-label">Изображение на продукта</label>
+                <input asp-for="ProductURL" class="form-control" />
+                <span asp-validation-for="ProductURL" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OldPrice" class="control-label">Стара цена</label>
+                <input asp-for="OldPrice" class="form-control" type="number" min="0" max="100000" />
+                <span asp-validation-for="OldPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CurrentPrice" class="control-label">Текуща цена</label>
+                <input asp-for="CurrentPrice" class="form-control" type="number" min="0" max="100000" />
+                <span asp-validation-for="CurrentPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label">Наличност</label>
+                <input asp-for="Quantity" class="form-control" type="number" min="0" max="10000" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OutputVoltage" class="control-label">Изходно напрежение</label>
+                <input asp-for="OutputVoltage" class="form-control" type="number" min="1" max="24" />
+                <span asp-validation-for="OutputVoltage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OutputCurrent" class="control-label">Изходен ток</label>
+                <input asp-for="OutputCurrent" class="form-control" type="number" min="1" max="24" />
+                <span asp-validation-for="OutputCurrent" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FastChargingSupported" /> Бързо зареждане
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalVotes" class="control-label">Брой оценки</label>
+                <input asp-for="TotalVotes" class="form-control" type="number" min="0" max="1000000" />
+                <span asp-validation-for="TotalVotes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Score" class="control-label">Общ резултат</label>
+                <input asp-for="Score" class="form-control" type="number" min="0" max="5000000" />
+                <span asp-validation-for="Score" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Създай" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Върни се към списъка</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

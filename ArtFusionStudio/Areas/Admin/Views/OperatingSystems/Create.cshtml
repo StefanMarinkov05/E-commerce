@@ -1,0 +1,33 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OperatingSystem
+
+@{
+    ViewData["Title"] = "Добави";
+}
+
+<h1>Създай</h1>
+
+<h4>Име на ОС</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OSName" class="control-label">Име на ОС</label>
+                <input asp-for="OSName" class="form-control" />
+                <span asp-validation-for="OSName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Създай" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="OSNameAndVersions" asp-action="Index">Върни се назад</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

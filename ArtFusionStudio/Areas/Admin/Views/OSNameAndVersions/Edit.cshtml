@@ -1,0 +1,41 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneFeatures.OSNameAndVersion
+
+@{
+    ViewData["Title"] = "Редактирай";
+}
+
+<h1>Редактирай</h1>
+
+<h4>OSNameAndVersion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="OSNameId" class="control-label">Избери ОС</label>
+                <select asp-for="OSNameId" class="form-control" asp-items="ViewBag.OSNameId"></select>
+                <span asp-validation-for="OSNameId" class="text-danger"></span> 
+                <a asp-controller="OperatingSystems" asp-action="Create">Добави нова ОС</a> <hr />
+            </div>
+            <div class="form-group">
+                <label asp-for="OSVersionId" class="control-label">Избери номер на версия</label>
+                <select asp-for="OSVersionId" class="form-control" asp-items="ViewBag.OSVersionId"></select>
+                <span asp-validation-for="OSVersionId" class="text-danger"></span>
+                <a asp-controller="OperatingSystemVersions" asp-action="Create">Добави нова версия</a> <hr />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Върни се към списъка</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

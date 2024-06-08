@@ -1,0 +1,27 @@
+﻿@model ArtFusionStudio.Models.ProductFeatures.PhoneAccessories.CaseType
+
+@{
+    ViewData["Title"] = "Изтрий";
+}
+
+<h1>Изтрий</h1>
+
+<h3>Сигурен ли си че искаш да изтриеш @Model.Name?</h3>
+<div>
+    <h4>Тип калъф</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Изтрий" class="btn btn-danger" /> |
+        <a asp-controller="CaseTypes" asp-action="Index">Върни се назад</a>
+    </form>
+</div>
